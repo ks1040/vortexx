@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VORTEXX Typing Trainer</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #0f0f0f;
+      color: #00ffcc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2em;
+    }
+    h1 {
+      margin-bottom: 0.5em;
+    }
+    #prompt {
+      font-size: 1.5em;
+      margin: 1em 0;
+      color: #ffffff;
+    }
+    #output {
+      width: 80%;
+      font-size: 1.2em;
+      background: #1a1a1a;
+      color: #00ffcc;
+      padding: 10px;
+      margin-bottom: 1em;
+      border-radius: 8px;
+    }
+    .correct {
+      color: lime;
+    }
+    .incorrect {
+      color: red;
+    }
+    #keyboard {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      gap: 5px;
+      margin-bottom: 1em;
+    }
+    .key {
+      width: 38px;
+      height: 38px;
+      background-color: #1f1f1f;
+      color: #00ffcc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      font-size: 1em;
+      box-shadow: 0 0 5px #00ffcc33;
+    }
+    .key.active {
+      background-color: #00ffcc;
+      color: #0f0f0f;
+    }
+    #stats, .controls, #levelInfo {
+      margin-bottom: 1em;
+    }
+    button {
+      background-color: #00ffcc;
+      color: #0f0f0f;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    button:hover {
+      background-color: #00ccb3;
+    }
+    #homeUI {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .levelBtn {
+      background: #1a1a1a;
+      color: #00ffcc;
+      border: 1px solid #00ffcc;
+      padding: 10px 15px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .levelBtn:hover {
+      background: #00ffcc;
+      color: #0f0f0f;
+    }
+    #inputBox {
+      width: 80%;
+      padding: 10px;
+      font-size: 1.2em;
+      margin-bottom: 1em;
+      border-radius: 8px;
+      border: 2px solid #00ffcc;
+      background-color: #0f0f0f;
+      color: #00ffcc;
+    }
+    #timeStats, #accuracyStats, #highScoreStats {
+      font-size: 1em;
+      color: #cccccc;
+      margin-bottom: 1em;
+    }
+    #volumeControl {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>VORTEXX Typing Trainer</h1>
+  <div id="homeUI">
+    <h2>Select a Level</h2>
+    <div id="levelButtons"></div>
+  </div>
+  <div id="trainerUI">
+    <div id="stats">WPM: <span id="wpm">0</span></div>
+    <div id="timeStats">Time: <span id="timeElapsed">0.00</span> seconds</div>
+    <div id="accuracyStats">Accuracy: <span id="accuracy">0</span>%</div>
+    <div id="highScoreStats">Best WPM: <span id="highScore">0</span></div>
+    <div id="levelInfo">Level <span id="levelNumber">1</span>: Learning Keys <span id="levelKeys"></span></div>
+    <div class="controls">
+      <button onclick="prevLevel()">⬅️ Previous</button>
+      <button onclick="nextLevel()">Next ➡️</button>
+      <button onclick="showHome()">🏠 Home</button>
+      <button onclick="toggleSound()" id="soundToggle">🔊 Sound: On</button>
+    </div>
+    <div id="prompt"></div>
+    <input id="inputBox" type="text" autocomplete="off" autofocus oninput="handleTyping(this.value)" />
+    <div id="output"></div>
+    <div id="keyboard"></div>
+    <div id="volumeControl">
+      Volume: <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+  <audio id="typeSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+  <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/wood_tap.ogg"></audio>
+  <audio id="incorrectSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
